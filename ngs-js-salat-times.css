@@ -1,0 +1,37 @@
+/*NGS JS Salat Times (WP Plugin)*/
+
+table.ngsjsst-salats.ngsjsst-daily th {
+  background-color: #e0e0e0;
+}
+
+table.ngsjsst-salats.ngsjsst-daily th.ngsjsst-odd {
+  background-color: #eeeeee;
+}
+
+table.ngsjsst-salats.ngsjsst-daily td.ngsjsst-time {
+  background-color: #E8E6DF;
+}
+
+table.ngsjsst-salats.ngsjsst-daily td.ngsjsst-time.ngsjsst-odd {
+  background-color: #F3F1EA;
+}
+
+table.ngsjsst-salats.ngsjsst-daily th.ngsjsst-select {
+  background-color: #AC2D35;
+  color: white;
+}
+
+table.ngsjsst-salats.ngsjsst-daily td.ngsjsst-time.ngsjsst-select {
+  background-color: #BF323B;
+  border: 2px solid #7C2026;
+  padding: 1px;
+  color: white;
+}
+
+table.ngsjsst-salats {
+  width: max-content;
+}
+
+table.ngsjsst-salats.ngsjsst-daily {
+  font-size: xx-small;
+}
