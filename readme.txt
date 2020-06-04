@@ -44,7 +44,7 @@ and a fork of moment-hijri (https://github.com/xlat/moment-hijri).
 6. Settings - Hijri Date Adjustments, Widget Style
 
 == Changelog ==
-= 1.0 =
+= 1.1 =
 First release.
 
 == Upgrade Notice ==

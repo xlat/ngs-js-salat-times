@@ -66,7 +66,7 @@ function ngs_js_salat_times_options() {
 
   //set non existing values (in cas of new settings in newer version)
   foreach($default as $k => $v) {
-    if(!in_array($k, $options, true)) {
+    if(!array_key_exists($k, $options)) {
       $options[$k] = $v;
     }
   }
@@ -225,7 +225,6 @@ function ngs_js_salat_times_options_page() {
   <div class="wrap">
     <h1 style="margin-bottom:5px;">NGS JS Salat Times Settings</h1>
   </div>
-  <?php /*if ( isset( $_POST[ "restore_defaults" ] ) == "1" ) delete_option( 'njs_js_salat_times_options' );*/ ?>
   <form id="auto_options" method="post" action="options.php">
   <?php 
     settings_fields( 'ngs-js-salat-times-settings-group' );
