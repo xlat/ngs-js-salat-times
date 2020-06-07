@@ -4,7 +4,7 @@
  * Plugin URI: https://ngs.ma/index.php/js-salat-times-wp-plugin/
  * Description: Yet Another Salat Times Wordpress Plugin.
  * Author: Nicolas Georges (nicolas@ngs.ma)
- * Version: 1.1
+ * Version: 1.2
  * Author URI: https://ngs.ma
  * License: MIT 
  * License URI: https://opensource.org/licenses/MIT
@@ -112,15 +112,15 @@ function ngs_js_salat_times_css () {
 
 function ngs_js_salat_times() {
   $jsst_options = ngs_js_salat_times_options();
-  print('<div class="ngs-js-salat-time-anchor"');
+  $sc = '<div class="ngs-js-salat-time-anchor"';
   #for each options in $jsst_options add an attribut
   foreach($jsst_options as $name => $value) {
     if($name != "css") {
       $value = htmlentities($value, ENT_HTML5, 'UTF-8' );
-      print("\t$name=\"$value\"\n");
+      $sc += "\t$name=\"$value\"\n";
     }
   }
-  print('></div>');
+  $sc += '></div>';
 }
 
 function widget_ngs_js_salat_times( $args ) {
@@ -162,17 +162,18 @@ function widget_ngs_js_salat_times_control() {
   <?php
 }
 
-function ngs_js_daily_salat_times() {
+function ngs_js_daily_salat_times() {//($atts, $content, $shortcode_tag)
   $jsst_options = ngs_js_salat_times_options();
-  print('<div class="ngs-js-salat-time-anchor" daily="true" ');
+  $sc = '<div class="ngs-js-salat-time-anchor" daily="true" ';
   #for each options in $jsst_options add an attribut
   foreach($jsst_options as $name => $value) {
     if($name != "css") {
       $value = htmlentities($value, ENT_HTML5, 'UTF-8' );
-      print("\t$name=\"$value\"\n");
+      $sc += "\t$name=\"$value\"\n";
     }
   }
-  print('></div>');
+  $sc += '></div>';
+  return $sc;
 }
 
 function widget_ngs_js_daily_salat_times( $args ) {

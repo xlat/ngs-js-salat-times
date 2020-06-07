@@ -7,6 +7,7 @@
 
 /* Original source: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_autocomplete */
 window.ngs_js_salat_time.autocomplete = function (inp, arr) {
+  if(!inp) return;
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
   var currentFocus;
