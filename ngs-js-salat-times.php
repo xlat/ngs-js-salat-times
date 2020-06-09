@@ -117,10 +117,11 @@ function ngs_js_salat_times() {
   foreach($jsst_options as $name => $value) {
     if($name != "css") {
       $value = htmlentities($value, ENT_HTML5, 'UTF-8' );
-      $sc += "\t$name=\"$value\"\n";
+      $sc .= "\t$name=\"$value\"\n";
     }
   }
-  $sc += '></div>';
+  $sc .= '></div>';
+  return $sc;
 }
 
 function widget_ngs_js_salat_times( $args ) {
@@ -169,10 +170,10 @@ function ngs_js_daily_salat_times() {//($atts, $content, $shortcode_tag)
   foreach($jsst_options as $name => $value) {
     if($name != "css") {
       $value = htmlentities($value, ENT_HTML5, 'UTF-8' );
-      $sc += "\t$name=\"$value\"\n";
+      $sc .= "\t$name=\"$value\"\n";
     }
   }
-  $sc += '></div>';
+  $sc .= '></div>';
   return $sc;
 }
 
@@ -238,7 +239,7 @@ function ngs_js_salat_times_options_page() {
 					<tr valign="top">
 						<td width="175px"><label for="opt-latitude">Latitude:</label></td>
             <td><input type="text" maxlength="20" size="10" id="opt-latitude" name="njs_js_salat_times_options[latitude]" value="<?php echo $jsst_options['latitude']; ?>"/></td>
-            <td rowspan="3"><img src="<?php echo plugins_url( '/NGS-JS-Salat-Times-Icon-128x128.png', __FILE__ ) ?>"></td>
+            <td rowspan="3"><img src="<?php echo plugins_url( '/icon-128x128.png', __FILE__ ) ?>"></td>
 					</tr>
 					<tr valign="top">
 						<td><label for="opt-longitude">Longitude:</label></td>
