@@ -1,0 +1,479 @@
+# NGS JS Salat Times WrodPress Plugin.
+# Copyright (C) 2020 Nicolas Georges
+# This file is distributed under the MIT license.
+# Nicolas Georges <nicolas@ngs.ma>, 2020.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ngs-js-salat-times 1.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-06-13 10:54+0100\n"
+"PO-Revision-Date: 2020-06-13 14:50+0100\n"
+"Last-Translator: Nicolas Georges <nicolas@ngs.ma>\n"
+"Language-Team: Nicolas <nicolas@ngs.ma>\n"
+"Language: fr\n"
+"X-Loco-Target-Locale: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ngs-js-salat-times.php:33
+msgid "Bas les pattes!"
+msgstr "Ne pas toucher!"
+
+#: ngs-js-salat-times.php:37
+msgid "Monthly Salat Times"
+msgstr "Horaires de prières mensuelles"
+
+#: ngs-js-salat-times.php:38
+msgid "Daily Salat Times"
+msgstr "Horaires de prières journalières"
+
+#: ngs-js-salat-times.php:61
+msgid "JOUR"
+msgstr "JOUR"
+
+#: ngs-js-salat-times.php:62
+msgid "SUBH"
+msgstr "SUBH"
+
+#: ngs-js-salat-times.php:63
+msgid "SHURUQ*"
+msgstr "SHURUQ"
+
+#: ngs-js-salat-times.php:64
+msgid "ZHUR"
+msgstr "ZHUR"
+
+#: ngs-js-salat-times.php:65
+msgid "ASR"
+msgstr "ASR"
+
+#: ngs-js-salat-times.php:66
+msgid "MAGHRIB"
+msgstr "MAGHRIB"
+
+#: ngs-js-salat-times.php:67
+msgid "ISHA"
+msgstr "ISHA"
+
+#: ngs-js-salat-times.php:68
+msgid "Previous Month"
+msgstr "Mois Précédent"
+
+#: ngs-js-salat-times.php:69
+msgid "Next Month"
+msgstr "Mois Suivant"
+
+#: ngs-js-salat-times.php:70
+msgid "HIJRI"
+msgstr "Hégirien"
+
+#: ngs-js-salat-times.php:156 ngs-js-salat-times.php:209
+msgid "Widget Title:"
+msgstr "Titre du Gadget :"
+
+#: ngs-js-salat-times.php:164 ngs-js-salat-times.php:217
+msgid "Location Name :"
+msgstr "Nom de l'emplacement :"
+
+#: ngs-js-salat-times.php:173 ngs-js-salat-times.php:226
+msgid "Go to: Settings"
+msgstr "Aller aux réglages"
+
+#: ngs-js-salat-times.php:173 ngs-js-salat-times.php:226
+#: ngs-js-salat-times.php:526 ngs-js-salat-times.php:562
+#: ngs-js-salat-times.php:563
+msgid "NGS JS Salat Times"
+msgstr "NGS JS Horaires de prières"
+
+#: ngs-js-salat-times.php:173 ngs-js-salat-times.php:226
+msgid "to change options."
+msgstr "pour modifier des options."
+
+#: ngs-js-salat-times.php:240 ngs-js-salat-times.php:526
+msgid "NGS JS Salat Times Settings"
+msgstr "Réglages de NGS JS Salat Times"
+
+#: ngs-js-salat-times.php:248
+msgid "Location"
+msgstr "Emplacement"
+
+#: ngs-js-salat-times.php:252
+msgid "Latitude:"
+msgstr "Latitude :"
+
+#: ngs-js-salat-times.php:257
+msgid "Longitude:"
+msgstr "Longitude :"
+
+#: ngs-js-salat-times.php:261
+msgid "Display Location Name:"
+msgstr "Nom affiché de l'emplacement :"
+
+#: ngs-js-salat-times.php:269
+msgid "Calculation Settings"
+msgstr "Options de calcul"
+
+#: ngs-js-salat-times.php:273
+msgid "Juristic Method:"
+msgstr "Méthode juridique :"
+
+#: ngs-js-salat-times.php:276
+msgid "Shafi - Earlier Asr time"
+msgstr "Shafi - Heure du Asr avancée"
+
+#: ngs-js-salat-times.php:277
+msgid "Hanafi - Later Asr time"
+msgstr "Hanafi - Heure du Asr retardée"
+
+#: ngs-js-salat-times.php:278
+msgid "(For Asr time)."
+msgstr "(Pour l'heure du Asr)."
+
+#: ngs-js-salat-times.php:282
+msgid "Calculation Method:"
+msgstr "Méthode de calcul :"
+
+#: ngs-js-salat-times.php:286
+msgid ""
+"Muslim World League. Standard Fajr time with an angle of 18°. Earlier Isha "
+"time with an angle of 17°."
+msgstr ""
+
+#: ngs-js-salat-times.php:287
+msgid ""
+"Egyptian General Authority of Survey. Early Fajr time using an angle 19.5° "
+"and a slightly earlier Isha time using an angle of 17.5°."
+msgstr ""
+
+#: ngs-js-salat-times.php:288
+msgid ""
+"University of Islamic Sciences, Karachi. A generally applicable method that "
+"uses standard Fajr and Isha angles of 18°."
+msgstr ""
+
+#: ngs-js-salat-times.php:289
+msgid ""
+"Umm al-Qura University, Makkah. Uses a fixed interval of 90 minutes from "
+"maghrib to calculate Isha. And a slightly earlier Fajr time with an angle of "
+"18.5°."
+msgstr ""
+
+#: ngs-js-salat-times.php:289
+msgid ""
+"Note: you should add a +30 minute custom adjustment for Isha during Ramadan."
+msgstr ""
+
+#: ngs-js-salat-times.php:290
+msgid ""
+"Used in the UAE. Slightly earlier Fajr time and slightly later Isha time "
+"with angles of 18.2° for Fajr and Isha in addition to 3 minute offsets for "
+"sunrise, Dhuhr, Asr, and Maghrib."
+msgstr ""
+
+#: ngs-js-salat-times.php:291
+msgid ""
+"Same Isha interval as ummAlQura but with the standard Fajr time using an "
+"angle of 18°."
+msgstr ""
+
+#: ngs-js-salat-times.php:292
+msgid ""
+"Standard Fajr time with an angle of 18°. Slightly earlier Isha time with an "
+"angle of 17.5°."
+msgstr ""
+
+#: ngs-js-salat-times.php:293
+msgid ""
+"Method developed by Khalid Shaukat, founder of Moonsighting Committee "
+"Worldwide. Uses standard 18° angles for Fajr and Isha in addition to "
+"seasonal adjustment values. This method automatically applies the 1/7 "
+"approximation rule for locations above 55° latitude. Recommended for North "
+"America and the UK."
+msgstr ""
+
+#: ngs-js-salat-times.php:294
+msgid ""
+"Used in Singapore, Malaysia, and Indonesia. Early Fajr time with an angle of "
+"20° and standard Isha time with an angle of 18°."
+msgstr ""
+
+#: ngs-js-salat-times.php:295
+msgid ""
+"An approximation of the Diyanet method used in Turkey. This approximation is "
+"less accurate outside the region of Turkey."
+msgstr ""
+
+#: ngs-js-salat-times.php:296
+msgid ""
+"Institute of Geophysics, University of Tehran. Early Isha time with an angle "
+"of 14°. Slightly later Fajr time with an angle of 17.7°. Calculates Maghrib "
+"based on the sun reaching an angle of 4.5° below the horizon."
+msgstr ""
+
+#: ngs-js-salat-times.php:297
+msgid ""
+"Also known as the ISNA method. Can be used for North America, but the "
+"moonsightingCommittee method is preferable. Gives later Fajr times and early "
+"Isha times with angles of 15°."
+msgstr ""
+
+#: ngs-js-salat-times.php:298
+msgid ""
+"Defaults to angles of 0°, should generally be used for making a custom "
+"method and setting your own values."
+msgstr ""
+
+#: ngs-js-salat-times.php:310
+msgid "Higher Latitudes Method:"
+msgstr "Méthode des hautes latitudes :"
+
+#: ngs-js-salat-times.php:314
+msgid ""
+"Fajr will never be earlier than the middle of the night and Isha will never "
+"be later than the middle of the night"
+msgstr ""
+
+#: ngs-js-salat-times.php:315
+msgid ""
+"Fajr will never be earlier than the beginning of the last seventh of the "
+"night and Isha will never be later than the end of the first seventh of the "
+"night"
+msgstr ""
+
+#: ngs-js-salat-times.php:316
+msgid ""
+"Similar to SeventhOfTheNight, but instead of 1/7, the fraction of the night "
+"used is fajrAngle/60 and ishaAngle/60"
+msgstr ""
+
+#: ngs-js-salat-times.php:326
+msgid ""
+"(Value from the HighLatitudeRule object, used to set a minimum time for Fajr "
+"and a max time for Isha)"
+msgstr ""
+
+#: ngs-js-salat-times.php:330
+msgid "Farj Angle:"
+msgstr "Angle du Fajr :"
+
+#: ngs-js-salat-times.php:331
+msgid "(Angle of the sun used to calculate Fajr)"
+msgstr "(L'angle du soleil utilisé pour le calcul du Fajr)"
+
+#: ngs-js-salat-times.php:334
+msgid "Isha Angle:"
+msgstr "Angle du Isha :"
+
+#: ngs-js-salat-times.php:335
+msgid "(Angle of the sun used to calculate Isha)"
+msgstr "(L'angle du soleil utilisé pour le calcul du Isha)"
+
+#: ngs-js-salat-times.php:338
+msgid "Isha Interval:"
+msgstr "Intervalle pour le Isha :"
+
+#: ngs-js-salat-times.php:339
+msgid ""
+"Minutes after Maghrib (if set, the time for Isha will be Maghrib plus "
+"ishaInterval)"
+msgstr "Nombre de minutes après le Maghrib (si défini, le Isha correpondra au Magrib + cette valeur)"
+
+#: ngs-js-salat-times.php:342
+msgid "Fajr Adjustment:"
+msgstr "Ajustement du Fajr :"
+
+#: ngs-js-salat-times.php:343 ngs-js-salat-times.php:347
+#: ngs-js-salat-times.php:351 ngs-js-salat-times.php:355
+#: ngs-js-salat-times.php:359 ngs-js-salat-times.php:363
+msgid "(in minutes)"
+msgstr "(en minutes)"
+
+#: ngs-js-salat-times.php:346
+msgid "Sunrise (Churuk) Adjustment:"
+msgstr "Ajustement du lever du soleil (Chourouk) :"
+
+#: ngs-js-salat-times.php:350
+msgid "Dhuhr Adjustment:"
+msgstr "Ajustement du Dhuhr :"
+
+#: ngs-js-salat-times.php:354
+msgid "Asr Adjustment:"
+msgstr "Ajustement du Asr :"
+
+#: ngs-js-salat-times.php:358
+msgid "Maghrib Adjustment:"
+msgstr "Ajustement du Maghrib :"
+
+#: ngs-js-salat-times.php:362
+msgid "Isha Adjustment:"
+msgstr "Ajustement du Isha :"
+
+#: ngs-js-salat-times.php:370
+msgid "Locales Settings"
+msgstr "Paramètres régionaux"
+
+#: ngs-js-salat-times.php:374
+msgid "Date Format:"
+msgstr "Format de la date :"
+
+#. translators: 1: link tag opening 2: link tag closing
+#: ngs-js-salat-times.php:378
+#, php-format
+msgid "(See %1$s momentjs date/time format options %2$s, let empty to hide)"
+msgstr "(Voir %1$s les options de format date/heure de momentjs %2$s, laisser vide pour masquer)"
+
+#: ngs-js-salat-times.php:384
+msgid "Time Format:"
+msgstr "Format de l'heure :"
+
+#: ngs-js-salat-times.php:388
+msgid "Hijri Date Format:"
+msgstr "Format de date hégirienne :"
+
+#. translators: 1: link tag opening 2: link tag closing
+#: ngs-js-salat-times.php:392
+#, php-format
+msgid "(See %1$sHijri date/time format options %2$s, let empty to hide)"
+msgstr "(Voir %1$s les options de format date/heure de l'hégire %2$s, laisser vide pour masquer)"
+
+#: ngs-js-salat-times.php:397
+msgid "Time Zone:"
+msgstr "Fuseau horaire :"
+
+#: ngs-js-salat-times.php:405
+msgid "Language:"
+msgstr "Langue :"
+
+#: ngs-js-salat-times.php:413
+msgid "Headers Translations:"
+msgstr "Traduction des entêtes :"
+
+#: ngs-js-salat-times.php:415
+msgid ""
+"(Day,Fajr,Shuruk,Zhur,Asr,Maghreb,Isha,Previous Month,Next Month,Hijri Day : "
+"use a pipe \"|\" as separator)"
+msgstr "(Jour, Farj, Chourouk, Dhuhr, Maghrib, Isha, Mois précédent, Mois Suivant, Jour de l'hégire : \nUtiliser des \"|\" pour séparer.)"
+#: ngs-js-salat-times.php:418
+msgid "Monthly Widget Title:"
+msgstr "Titre du gadget mensuel :"
+
+#: ngs-js-salat-times.php:422
+msgid "Daily Widget Title:"
+msgstr "Titre du gadget journalier :"
+
+#: ngs-js-salat-times.php:430
+msgid "Hijri Date Adjustments"
+msgstr "Ajustements de la date hégirienne"
+
+#: ngs-js-salat-times.php:434
+msgid "List of hijri month adjustments:"
+msgstr "Liste des ajustements des mois hégiriens :"
+
+#: ngs-js-salat-times.php:439
+msgid "One adjutment by row, use the format:"
+msgstr "Un ajustement par ligne, utiliser le format :"
+
+#: ngs-js-salat-times.php:439
+msgid ", eg:"
+msgstr ", ex:"
+
+#. translators: %s: Umm al-Qura link
+#: ngs-js-salat-times.php:443
+#, php-format
+msgid "This will override %s data used to compute hijri month length."
+msgstr "Ceci surchargera les données de %s utilisées pour calculer les longueurs des mois hégiriens."
+
+#. translators: 1: this open tag link 2: link closing tag 3: moment link 4: moment-hijri link 5: author link
+#: ngs-js-salat-times.php:448
+#, php-format
+msgid "%1$s This %2$s is based on the %3$s library\\s plugin %4$s from %5$s"
+msgstr "%1$s Ce plugin %2$s utilise la librarie %3$s ainsi que l'extension %4$s de %5$s"
+
+#: ngs-js-salat-times.php:463
+msgid "Widget Style"
+msgstr "Style du gadget"
+
+#: ngs-js-salat-times.php:467
+msgid "Custom CSS:"
+msgstr "CSS personnalisé :"
+
+#: ngs-js-salat-times.php:468
+msgid "enter your custom CSS here"
+msgstr "Entrer votre personnalisation CSS ici"
+
+#: ngs-js-salat-times.php:476
+msgid "Help"
+msgstr "Aide"
+
+#: ngs-js-salat-times.php:478
+msgid "How To Use"
+msgstr "Comment utiliser"
+
+#: ngs-js-salat-times.php:480
+msgid "Go to: Appearance"
+msgstr "Aller vers l'apparence"
+
+#: ngs-js-salat-times.php:480
+msgid "Widgets"
+msgstr "Gadgets"
+
+#: ngs-js-salat-times.php:480
+msgid "to use this (NGS JS Salat Times) widget."
+msgstr "pour utiliser ce gadget (NGS JS Salat Times)."
+
+#: ngs-js-salat-times.php:481
+msgid "Insert this shortcode in post/page:"
+msgstr "Insérer ce code court dans une page/un article :"
+
+#: ngs-js-salat-times.php:485 ngs-js-salat-times.php:494
+msgid "or:"
+msgstr "ou bien :"
+
+#: ngs-js-salat-times.php:490
+msgid "Or, PHP code: "
+msgstr "Sinon, avec du code PHP :"
+
+#. translators: 1: Author contact link
+#: ngs-js-salat-times.php:512
+#, php-format
+msgid "For any help related to this plugin, contact %1$s ."
+msgstr "Pour toutes informations sur cette extension, contacter %1$s ."
+
+#: ngs-js-salat-times.php:515
+msgid "Web:"
+msgstr "Internet :"
+
+#: ngs-js-salat-times.php:516
+msgid "View:"
+msgstr "Voir :"
+
+#: ngs-js-salat-times.php:516
+msgid "Support Forum"
+msgstr "Forum d'entraide"
+
+#: ngs-js-salat-times.php:517
+msgid "Changelog"
+msgstr "Historique des évolutions"
+
+#: ngs-js-salat-times.php:518
+msgid "Wordpress Plugins Directory:"
+msgstr "Dossier WordPress des extensions :"
+
+#: ngs-js-salat-times.php:519
+msgid "Please always keep this plugin up to date."
+msgstr "Veillez à maintenir cette extention à jour."
+
+#: ngs-js-salat-times.php:562
+msgid "Displays monthly salat timesheet."
+msgstr "Affichage du calendrier mensuel de prières."
+
+#: ngs-js-salat-times.php:565 ngs-js-salat-times.php:566
+msgid "NGS JS Daily Salat Times"
+msgstr "NGS JS Prières journalières"
+
+#: ngs-js-salat-times.php:565
+msgid "Displays daily salat band."
+msgstr "Affichage du bandeau de prières journalières."

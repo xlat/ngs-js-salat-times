@@ -86,6 +86,16 @@ window.ngs_js_salat_time = {
       var asr_class = prayerTimes.asr <= now && now < prayerTimes.maghrib ? "ngsjsst-select" : "";
       var magh_class = prayerTimes.maghrib <= now && now < prayerTimes.isha ? "ngsjsst-select" : "";
       var isha_class = prayerTimes.isha <= now && now < sunnahTimes.lastThirdOfTheNight ? "ngsjsst-select" : "";  // not .middleOfTheNight == isha ...
+      var next_salat = prayerTimes.fajr;
+      if(prayerTimes.fajr < now && now < prayerTimes.dhuhr) next_salat = prayerTimes.dhuhr;
+      if(prayerTimes.dhuhr < now && now < prayerTimes.asr) next_salat = prayerTimes.asr;
+      if(prayerTimes.asr < now && now < prayerTimes.maghrib) next_salat = prayerTimes.maghrib;
+      if(prayerTimes.maghrib < now && now < prayerTimes.isha) next_salat = prayerTimes.isha;
+      if(prayerTimes.isha < now && now < sunnahTimes.lastThirdOfTheNight) next_salat = sunnahTimes.lastThirdOfTheNight;
+      console.log("Next salat:", next_salat);
+      // compute timeout until next salat
+      setTimeout(function() { ngs_js_salat_time.build_table_anchor(anchor); }, (next_salat - now) );
+
       salat_table += `
       <table class="ngsjsst-salats ngsjsst-daily">
           <thead>

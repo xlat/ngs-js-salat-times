@@ -4,7 +4,7 @@ Tags: salat times islam prayer adhan azan
 Requires at least: 5.4.1
 Tested up to: 5.4.1
 Requires PHP: 7.0
-Stable tag: 1.2
+Stable tag: 1.3
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -12,8 +12,8 @@ Provide Islamic Prayer Times computed on client side.
 
 == Description ==
 This plugins provide Islamic Prayer Times to be diplayed on sidebar or as short_code.
-It is based on Javascript library [Adhan.js]: https://github.com/batoulapps/adhan-js 
-and a fork of [moment-hijri]: https://github.com/xlat/moment-hijri .
+It is based on Javascript library [Adhan.js](https://github.com/batoulapps/adhan-js) 
+and a fork of [moment-hijri](https://github.com/xlat/moment-hijri) .
 
 == Installation ==
 1. Download the plugin.
@@ -24,7 +24,7 @@ and a fork of [moment-hijri]: https://github.com/xlat/moment-hijri .
 
 == Contributions ==
 In addition to the official SVN repository which is designed to release, 
-there is a [github repo]: https://github.com/xlat/ngs-js-salat-times.git
+there is a [github repo](https://github.com/xlat/ngs-js-salat-times.git)
 So if you want to contribute feel free to fork it and submit a pull request.
 
 == Frequently Asked Questions ==
@@ -38,8 +38,8 @@ So if you want to contribute feel free to fork it and submit a pull request.
   `[ngs_js_salat_times]`
   `[ngs_js_daily_salat_times]`
 - PHP Code: 
-  `<?php echo do_shortcode('[ngs_js_salat_times]'); ?>`
-  `<?php echo do_shortcode('[ngs_js_daily_salat_times]'); ?>`
+  `< ?php echo do_shortcode('[ngs_js_salat_times]'); ? >`
+  `< ?php echo do_shortcode('[ngs_js_daily_salat_times]'); ? >`
 
 == Screenshots ==
 1. Monthly Widget preview
@@ -50,6 +50,8 @@ So if you want to contribute feel free to fork it and submit a pull request.
 6. Settings - Hijri Date Adjustments, Widget Style
 
 == Changelog ==
+= 1.3 =
+* realtime refresh daily salat widget
 = 1.2 =
 * fix error on short_code
 * fix javascript error in admin pages
