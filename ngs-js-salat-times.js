@@ -66,7 +66,7 @@ window.ngs_js_salat_time = {
     if(hijriAdj != "") moment().iMonthsAdjustments(hijriAdj);
     
     var coordinates = new adhan.Coordinates( latitude, longitude);
-    var salat_table = "";
+    var tmplSettings = { interpolate: /<\?js=(.+?)\?>/g, evaluate: /<\?js([^=-].+?)\?>/g, escape: /<\?js-(.+?)\?>/g };
     if(isDaily) {
       var moments = ngs_js_salat_time.get_prayer_times_moments(coordinates, m, params)
       var prayerTimes = moments.prayerTimes;
@@ -92,85 +92,169 @@ window.ngs_js_salat_time = {
       if(prayerTimes.asr < now && now < prayerTimes.maghrib) next_salat = prayerTimes.maghrib;
       if(prayerTimes.maghrib < now && now < prayerTimes.isha) next_salat = prayerTimes.isha;
       if(prayerTimes.isha < now && now < sunnahTimes.lastThirdOfTheNight) next_salat = sunnahTimes.lastThirdOfTheNight;
-      console.log("Next salat:", next_salat);
       // compute timeout until next salat
       setTimeout(function() { ngs_js_salat_time.build_table_anchor(anchor); }, (next_salat - now) );
 
-      salat_table += `
-      <table class="ngsjsst-salats ngsjsst-daily">
-          <thead>
-            <tr>
-              <th class="${fajr_class}">${titles[1]}</th>
-              <th class="${chur_class} ngsjsst-odd">${titles[2]}</th>
-              <th class="${dhur_class}">${titles[3]}</th>
-              <th class="${asr_class} ngsjsst-odd">${titles[4]}</th>
-              <th class="${magh_class}">${titles[5]}</th>
-              <th class="${isha_class} ngsjsst-odd">${titles[6]}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="ngsjsst-time">
-              <td class="ngsjsst-time ${fajr_class}">${prayerTimes.fajr.locale(locale).tz(timeZone).format(time_fmt)}</td>
-              <td class="ngsjsst-time ${chur_class} ngsjsst-odd">${prayerTimes.sunrise.locale(locale).tz(timeZone).format(time_fmt)}</td>
-              <td class="ngsjsst-time ${dhur_class}">${prayerTimes.dhuhr.locale(locale).tz(timeZone).format(time_fmt)}</td>
-              <td class="ngsjsst-time ${asr_class} ngsjsst-odd">${prayerTimes.asr.locale(locale).tz(timeZone).format(time_fmt)}</td>
-              <td class="ngsjsst-time ${magh_class}">${prayerTimes.maghrib.locale(locale).tz(timeZone).format(time_fmt)}</td>
-              <td class="ngsjsst-time ${isha_class} ngsjsst-odd">${prayerTimes.isha.locale(locale).tz(timeZone).format(time_fmt)}</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <th colspan="3" class="ngsjsst-day ngsjsst-hijri">${hijri_fmt == '' ? '' : m.clone().locale(locale).tz(timeZone).format(hijri_fmt)}</th>
-              <th colspan="3" class="ngsjsst-day ngsjsst-gregorian">${date_fmt == '' ? '' : m.clone().locale(locale).tz(timeZone).format(date_fmt)}</th>
-            </tr>
-          </tfoot>
-        </table>
-      `;
+      var data = {
+          classes: {
+            fajr: fajr_class, 
+            churuk: chur_class, 
+            dhuhr: dhur_class, 
+            asr: asr_class, 
+            maghrib: magh_class, 
+            isha: isha_class
+          },
+          now: now,
+          prayerTimes: _.clone(prayerTimes),
+          sunnahTimes: _.clone(sunnahTimes),
+          displayTimes: {
+            fajr: prayerTimes.fajr.locale(locale).tz(timeZone).format(time_fmt), 
+            churuk: prayerTimes.sunrise.locale(locale).tz(timeZone).format(time_fmt), 
+            dhuhr: prayerTimes.dhuhr.locale(locale).tz(timeZone).format(time_fmt), 
+            asr: prayerTimes.asr.locale(locale).tz(timeZone).format(time_fmt), 
+            maghrib: prayerTimes.maghrib.locale(locale).tz(timeZone).format(time_fmt), 
+            isha: prayerTimes.isha.locale(locale).tz(timeZone).format(time_fmt),
+            hijriDate: (hijri_fmt == "" ? "" : m.clone().locale(locale).tz(timeZone).format(hijri_fmt)),
+            gregorianDate: (date_fmt == "" ? "" : m.clone().locale(locale).tz(timeZone).format(date_fmt))
+          },
+          titles: {
+            gregorianDay: titles[0],
+            fajr: titles[1], 
+            churuk: titles[2], 
+            dhuhr: titles[3], 
+            asr: titles[4], 
+            maghrib: titles[5], 
+            isha: titles[6],
+            prevMonth: titles[7],
+            nextMonth: titles[8],
+            hijriDay: titles[9],
+          }
+        };
+        var tmpl = 
+          //FIXME: retrieve template code from <script type="text/x-template" id="xxx">...</script> or something like that, inside our anchor...
+          //Then take it from a settings (with some default template - or juste this one?)
+      '<table class="ngsjsst-salats ngsjsst-daily">' + 
+      '  <thead>' + 
+      '    <tr>' + 
+      '      <th class="<?js= classes.fajr    ?>"><?js= titles.fajr    ?></th>' + 
+      '      <th class="<?js= classes.churuk  ?>"><?js= titles.churuk  ?></th>' + 
+      '      <th class="<?js= classes.dhuhr   ?>"><?js= titles.dhuhr   ?></th>' + 
+      '      <th class="<?js= classes.asr     ?>"><?js= titles.asr     ?></th>' + 
+      '      <th class="<?js= classes.maghrib ?>"><?js= titles.maghrib ?></th>' + 
+      '      <th class="<?js= classes.isha    ?>"><?js= titles.isha    ?></th>' + 
+      '    </tr>' + 
+      '  </thead>' + 
+      '  <tbody>' + 
+      '    <tr class="ngsjsst-time">' + 
+      '      <td class="ngsjsst-time <?js= classes.fajr    ?>"><?js= displayTimes.fajr ?></td>' + 
+      '      <td class="ngsjsst-time <?js= classes.churuk  ?> ngsjsst-odd"><?js= displayTimes.churuk ?></td>' + 
+      '      <td class="ngsjsst-time <?js= classes.dhuhr   ?>"><?js= displayTimes.dhuhr ?></td>' + 
+      '      <td class="ngsjsst-time <?js= classes.asr     ?> ngsjsst-odd"><?js= displayTimes.asr ?></td>' + 
+      '      <td class="ngsjsst-time <?js= classes.maghrib ?>"><?js= displayTimes.maghrib ?></td>' + 
+      '      <td class="ngsjsst-time <?js= classes.isha    ?> ngsjsst-odd"><?js= displayTimes.isha ?></td>' + 
+      '    </tr>' + 
+      '  </tbody>' + 
+      '  <tfoot>' + 
+      '    <tr>' + 
+      '      <th colspan="3" class="ngsjsst-day ngsjsst-hijri"><?js= displayTimes.hijriDate ?></th>' + 
+      '      <th colspan="3" class="ngsjsst-day ngsjsst-gregorian"><?js= displayTimes.gregorianDate ?></th>' + 
+      '    </tr>' + 
+      '  </tfoot>' + 
+      '</table>';
     }
     else {
-      if(hijri_fmt) salat_table += `<th class="ngsjsst-day ngsjsst-hijri">${titles[9]}</th>`;
-      if(date_fmt) salat_table += `\n<th class="ngsjsst-day ngsjsst-gregorian">${titles[0]}</th>`;
-      salat_table = `
-      <table class="ngsjsst-salats">
-        <thead>
-          <tr>
-            ${salat_table}
-            <th>${titles[1]}</th>
-            <th>${titles[2]}</th>
-            <th>${titles[3]}</th>
-            <th>${titles[4]}</th>
-            <th>${titles[5]}</th>
-            <th>${titles[6]}</th>
-          </tr>
-        </thead>
-        <tbody>
-        `;
       var toDay = moment();
       var thisMonth = m.month();
+      var displayDays = [];
       while(m.month() == thisMonth) {
         var moments = ngs_js_salat_time.get_prayer_times_moments(coordinates, m, params)
         var prayerTimes = moments.prayerTimes;
         var sunnahTimes = moments.sunnahTimes;
-          var tr_class = "";
-        if(m.date()%2) tr_class = "ngsjsst-odd";
-        if(m.date() == toDay.date() && m.month() == toDay.month() && m.year() == toDay.year()) tr_class += " ngsjsst-today";
-        salat_table += '<tbody><tr class="' + tr_class + '">';
-        if(hijri_fmt != '') salat_table += `<td class="ngsjsst-day ngsjsst-hijri">${m.clone().locale(locale).tz(timeZone).format(hijri_fmt)}</td>`;
-        if(date_fmt != '') salat_table += `<td class="ngsjsst-day ngsjsst-gregorian">${m.clone().locale(locale).tz(timeZone).format(date_fmt)}</td>`;
-        salat_table += `<td class="ngsjsst-time">${prayerTimes.fajr.locale(locale).tz(timeZone).format(time_fmt)}</td>`;
-        salat_table += `<td class="ngsjsst-time">${prayerTimes.sunrise.locale(locale).tz(timeZone).format(time_fmt)}</td>`;
-        salat_table += `<td class="ngsjsst-time">${prayerTimes.dhuhr.locale(locale).tz(timeZone).format(time_fmt)}</td>`;
-        salat_table += `<td class="ngsjsst-time">${prayerTimes.asr.locale(locale).tz(timeZone).format(time_fmt)}</td>`;
-        salat_table += `<td class="ngsjsst-time">${prayerTimes.maghrib.locale(locale).tz(timeZone).format(time_fmt)}</td>`;
-        salat_table += `<td class="ngsjsst-time">${prayerTimes.isha.locale(locale).tz(timeZone).format(time_fmt)}</td>`;
-        salat_table += "</tr>\n";
+        displayDays.push({
+            isToday: (m.date() == toDay.date() && m.month() == toDay.month() && m.year() == toDay.year()),
+            day: m.date(), 
+            month: m.month(), 
+            year: m.year(), 
+            hijriDate: (hijri_fmt == '' ? '' : m.clone().locale(locale).tz(timeZone).format(hijri_fmt)),
+            gregorianDate: (date_fmt == '' ? '' : m.clone().locale(locale).tz(timeZone).format(date_fmt)),
+            displayTimes: {
+              fajr: prayerTimes.fajr.locale(locale).tz(timeZone).format(time_fmt),
+              churuk: prayerTimes.sunrise.locale(locale).tz(timeZone).format(time_fmt),
+              dhuhr: prayerTimes.dhuhr.locale(locale).tz(timeZone).format(time_fmt),
+              asr: prayerTimes.asr.locale(locale).tz(timeZone).format(time_fmt),
+              maghrib: prayerTimes.maghrib.locale(locale).tz(timeZone).format(time_fmt),
+              isha: prayerTimes.isha.locale(locale).tz(timeZone).format(time_fmt)
+            },
+            prayerTimes: _.clone(prayerTimes),
+            sunnahTimes: _.clone(sunnahTimes)
+          });
         m.add(1,'days');
       }
-      salat_table += '</tbody>';
-      salat_table += `<tfoot><tr><th colspan="${6 + (hijri_fmt==""?0:1) + (date_fmt==""?0:1)}" style="text-align: center;"><a href="javascript:ngs_js_salat_time.go_prev_month();">${titles[7]}</a> &nbsp; <a href="javascript:ngs_js_salat_time.go_next_month();">${titles[8]}</a></th></tr></tfoot>`;
-      salat_table += "</table>\n\n";
+      var data = {
+        hasHijriDate: hijri_fmt != "",
+        hasGregorianDate: date_fmt != "",
+        titles: {
+          gregorianDay: titles[0],
+          fajr: titles[1], 
+          churuk: titles[2], 
+          dhuhr: titles[3], 
+          asr: titles[4], 
+          maghrib: titles[5], 
+          isha: titles[6],
+          prevMonth: titles[7],
+          nextMonth: titles[8],
+          hijriDay: titles[9],
+        },
+        toDay: toDay,
+        thisMonth: thisMonth,
+        displayDays: displayDays
+      };
+      var tmpl = 
+'<table class="ngsjsst-salats">' + 
+'  <thead>' + 
+'    <tr>' + 
+'      <?js if(hasHijriDate) { ?><th class="ngsjsst-day ngsjsst-hijri"><?js= titles.hijriDay ?></th><?js } ?>' + 
+'      <?js if(hasGregorianDate) {?><th class="ngsjsst-day ngsjsst-gregorian"><?js= titles.gregorianDay ?></th><?js } ?>' + 
+'      <th><?js= titles.fajr ?></th>' + 
+'      <th><?js= titles.churuk ?></th>' + 
+'      <th><?js= titles.dhuhr ?></th>' + 
+'      <th><?js= titles.asr ?></th>' + 
+'      <th><?js= titles.maghrib ?></th>' + 
+'      <th><?js= titles.isha ?></th>' + 
+'    </tr>' + 
+'  </thead>' + 
+'  <tbody>' + 
+'<?js' +
+'  _.each(displayDays, function(displayDay){' + 
+'    var displayTimes = displayDay.displayTimes;' +
+'    ?>' +
+'    <tr class="<?js= displayDay.day % 2 ? \'ngsjsst-odd\' : \'\' ?> <?js= displayDay.isToday ? \'ngsjsst-today\' : \'\' ?>">' + 
+'    <?js if(hasHijriDate) { ?>' + 
+'      <td class="ngsjsst-day ngsjsst-hijri"><?js= displayDay.hijriDate ?></td>' + 
+'    <?js }' + 
+'         if(hasGregorianDate) { ?>' + 
+'      <td class="ngsjsst-day ngsjsst-gregorian"><?js= displayDay.gregorianDate ?></td>' + 
+'    <?js } ?>' + 
+'      <td class="ngsjsst-time"><?js= displayTimes.fajr ?></td>' + 
+'      <td class="ngsjsst-time"><?js= displayTimes.churuk ?></td>' + 
+'      <td class="ngsjsst-time"><?js= displayTimes.dhuhr ?></td>' + 
+'      <td class="ngsjsst-time"><?js= displayTimes.asr ?></td>' + 
+'      <td class="ngsjsst-time"><?js= displayTimes.maghrib ?></td>' + 
+'      <td class="ngsjsst-time"><?js= displayTimes.isha ?></td>' + 
+'    </tr><?js' + 
+'  });' +
+'?>' +
+'  </tbody>' + 
+'  <tfoot>' + 
+'    <tr>' + 
+'      <th colspan="<?js= 6 + (hasHijriDate ? 1 : 0) + (hasGregorianDate ? 1 : 0) ?>" style="text-align: center;">' + 
+'        <a href="javascript:ngs_js_salat_time.go_prev_month();"><?js= titles.prevMonth ?></a> &nbsp; <a href="javascript:ngs_js_salat_time.go_next_month();"><?js= titles.nextMonth ?></a>' + 
+'      </th>' + 
+'    </tr>' + 
+'  </tfoot>' + 
+'</table>';
     }
-    anchor.innerHTML = salat_table;
+    anchor.innerHTML = _.template(tmpl, tmplSettings)(data);
   },
   "go_next_month": function() {
     ngs_js_salat_time.build_table(ngs_js_salat_time.last_period.add(1,"months"));

@@ -530,7 +530,7 @@ function register_ngs_js_salat_times_settings() {
 }
 
 function ngs_js_salat_times_enqueue_scripts() {
-  wp_register_script('adhan', plugins_url( '/Adhan.min.js', __FILE__ ), array('moment-with-locales', 'moment-timezone-with-data-10-year-range', 'moment-hijri.js') );
+  wp_register_script('adhan', plugins_url( '/Adhan.min.js', __FILE__ ), array('moment-with-locales', 'moment-timezone-with-data-10-year-range', 'moment-hijri.js', 'underscore') );
   wp_register_script('moment-hijri.js', plugins_url( '/moment-hijri.js', __FILE__ ) );
   wp_register_script('moment-with-locales', plugins_url( '/moment-with-locales.min.js', __FILE__) );
   wp_register_script('moment-timezone-with-data-10-year-range', plugins_url('/moment-timezone-with-data-10-year-range.min.js', __FILE__) );
