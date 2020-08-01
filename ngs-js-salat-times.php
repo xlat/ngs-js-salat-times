@@ -4,11 +4,11 @@
  * Plugin URI: https://ngs.ma/index.php/js-salat-times-wp-plugin/
  * Description: Yet Another Salat Times Wordpress Plugin.
  * Author: Nicolas Georges (nicolas@ngs.ma)
- * Version: 1.2
+ * Version: 1.3
  * Author URI: https://ngs.ma
  * License: MIT 
  * License URI: https://opensource.org/licenses/MIT
- * Date: 2020-05-30
+ * Date: 2020-08-01
  * Plugin Id: ngs-js-salat-times
  * Source: https://github.com/xlat/ngs-js-salat-times.git
  */
@@ -69,6 +69,8 @@ function ngs_js_salat_times_options() {
         __('HIJRI', 'ngs-js-salat-times'),
       )),
     'css' => ngs_js_salat_times_css(),
+    'daily_tmpl' => '',
+    'monthly_tmpl' => '',
    );
   $options = get_option("njs_js_salat_times_options");
   if ( !is_array( $options ) ) {
@@ -121,9 +123,12 @@ function ngs_js_salat_times_css () {
   ';
 }
 
-function ngs_js_salat_times() {
+function ngs_js_salat_times($id) {
   $jsst_options = ngs_js_salat_times_options();
+  $file = $jsst_options['monthly_tmpl'];
+  if($file=="") $file='default_monthly.tmpl';
   $sc = '<div class="ngs-js-salat-time-anchor"';
+  if($id) $sc .= 'id="'.$id.'" ';
   #for each options in $jsst_options add an attribut
   foreach($jsst_options as $name => $value) {
     if($name != "css") {
@@ -131,7 +136,13 @@ function ngs_js_salat_times() {
       $sc .= "\t$name=\"$value\"\n";
     }
   }
-  $sc .= '></div>';
+  $sc .= '></div><script type="text/template">';
+  $file = plugin_dir_path(__FILE__).'templates/'.$file;
+  if(file_exists($file))
+    $sc .= file_get_contents( $file );
+  else 
+    $sc .= "Tempalte file not found: <b>$file</b>";
+  $sc .='</script>';
   return $sc;
 }
 
@@ -174,9 +185,14 @@ function widget_ngs_js_salat_times_control() {
   <?php
 }
 
-function ngs_js_daily_salat_times() {//($atts, $content, $shortcode_tag)
+function ngs_js_daily_salat_times($id='') {//($atts, $content, $shortcode_tag)
   $jsst_options = ngs_js_salat_times_options();
+  $file = $jsst_options['daily_tmpl'];
+  if($file=="") $file = 'default_daily.tmpl';
+  //$jsst_options['daily_tmpl'] = plugins_url(__FILE__) . 'templates/' . $file;
+
   $sc = '<div class="ngs-js-salat-time-anchor" daily="true" ';
+  if($id) $sc .= 'id="'.$id.'" ';
   #for each options in $jsst_options add an attribut
   foreach($jsst_options as $name => $value) {
     if($name != "css") {
@@ -184,7 +200,13 @@ function ngs_js_daily_salat_times() {//($atts, $content, $shortcode_tag)
       $sc .= "\t$name=\"$value\"\n";
     }
   }
-  $sc .= '></div>';
+  $sc .= '></div><script type="text/template">';
+  $file = plugin_dir_path(__FILE__).'templates/'.$file;
+  if(file_exists($file))
+    $sc .= file_get_contents( $file );
+  else 
+    $sc .= "Tempalte file not found: <b>$file</b>";
+  $sc .='</script>';
   return $sc;
 }
 
@@ -243,6 +265,13 @@ function ngs_js_salat_times_options_page() {
     settings_fields( 'ngs-js-salat-times-settings-group' );
     $jsst_options = ngs_js_salat_times_options();
   ?>
+    <div class="postbox">
+			<h3 class="hndle" style="padding: 10px; margin: 0;"><span><?php _e('Like it ?', 'ngs-js-salat-times') ?></span></h3>
+			<div class="inside">
+				<span> <a href="https://wordpress.org/support/plugin/ngs-js-salat-times/reviews/#new-post"><?php _e('Please rate me!', 'ngs-js-salat-times') ?></a> </span>
+			</div>
+		</div>
+
     <div class="postbox">
 			<h3 class="hndle" style="padding: 10px; margin: 0;"><span><?php _e('Location', 'ngs-js-salat-times') ?></span></h3>
 			<div class="inside">
@@ -431,7 +460,7 @@ function ngs_js_salat_times_options_page() {
 				<table class="form-table" style="width: inherit !important;">
 					<tr valign="top">
 						<td width="175px" style="vertical-align: top;"><label for="opt-hijri-offsets"><?php _e('List of hijri month adjustments:', 'ngs-js-salat-times') ?></label></td>
-						<td><textarea rows="10" cols="100" id="opt-hijri-offsets" placeholder="1441-01: 29" name="njs_js_salat_times_options[hjri_offsets]"><?php echo htmlspecialchars($jsst_options['hijri_offsets']) ?></textarea></td>
+						<td><textarea rows="10" cols="100" id="opt-hijri-offsets" placeholder="1441-01: 29" name="njs_js_salat_times_options[hijri_adjustment]"><?php echo htmlspecialchars($jsst_options['hijri_adjustment']) ?></textarea></td>
           </tr>
           <tr valign="top">
             <td colspan="2">
@@ -459,15 +488,62 @@ function ngs_js_salat_times_options_page() {
 		</div>
 
 		<div class="postbox">
-			<h3 class="hndle" style="padding: 10px; margin: 0;"><span><?php _e('Widget Style', 'ngs-js-salat-times') ?></span></h3>
+			<h3 class="hndle" style="padding: 10px; margin: 0;"><span><?php _e('Widget Style and templates', 'ngs-js-salat-times') ?></span></h3>
 			<div class="inside">
 				<table class="form-table" style="width: inherit !important;">
 					<tr valign="top">
 						<td width="175px" style="vertical-align: top;"><label for="opt-css"><?php _e('Custom CSS:', 'ngs-js-salat-times') ?></label></td>
 						<td><textarea placeholder="<?php _e('enter your custom CSS here', 'ngs-js-salat-times') ?>" rows="10" cols="100" id="opt-css" name="njs_js_salat_times_options[css]"><?php echo htmlspecialchars($jsst_options['css']) ?></textarea></td>
-					</tr>
+          </tr>
+          <tr valign="top">
+            <td><label for="opt-daily-tmpl"><?php _e('Daily Template:', 'ngs-js-salat-times') ?></label></td>
+            <td>
+              <select name="njs_js_salat_times_options[daily_tmpl]" id="opt-daily-tmpl">
+              <?php
+                $selected = '';
+                if($jsst_options['daily_tmpl']=="") $selected = 'selected';
+                echo "<option value=\"\" $selected>Default</option>\n";
+                foreach(array_diff(scandir(plugin_dir_path(__FILE__)."templates"), array('..', '.')) as $file) {
+                  if($file == $jsst_options['daily_tmpl']) $selected = 'selected'; else $selected = '';
+                  echo "<option value=\"$file\" $selected>$file</option>\n";
+                }
+              ?>
+              </select>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td><label for="opt-monthly-tmpl"><?php _e('Monthly Template:', 'ngs-js-salat-times') ?></label></td>
+            <td>
+              <select name="njs_js_salat_times_options[monthly_tmpl]" id="opt-monthly-tmpl">
+              <?php
+                $selected = '';
+                if($jsst_options['daily_tmpl']=="") $selected = 'selected';
+                echo "<option value=\"\" $selected>Default</option>\n";
+                foreach(array_diff(scandir(plugin_dir_path(__FILE__)."templates"), array('..', '.')) as $file) {
+                  if($file == $jsst_options['monthly_tmpl']) $selected = 'selected'; else  $selected = '';
+                  echo "<option value=\"$file\" $selected>$file</option>\n";
+                }
+              ?>
+              </select>
+            </td>
+          </tr>
 				</table>
 			</div>
+    </div>
+
+    <div class="postbox">
+			<h3 class="hndle" style="padding: 10px; margin: 0;"><span><?php _e('Preview', 'ngs-js-salat-times') ?></span></h3>
+			<div class="inside">
+      <table>
+      <tr><td>
+      <?php
+        echo ngs_js_daily_salat_times('ngs_js_salat_times_admin_daily');
+        echo "</td><td style=\"height: 500px;\">";
+        echo ngs_js_salat_times('ngs_js_salat_times_admin_monthly');
+      ?>
+      </td></tr>
+      </table>
+      </div>
     </div>
     
   <a name="help"></a>
@@ -478,22 +554,26 @@ function ngs_js_salat_times_options_page() {
 			</p>
 			<p style="padding-left: 10px;"><?php _e('Go to: Appearance', 'ngs-js-salat-times') ?> &gt; <a href="<?php admin_url(); ?>widgets.php"><?php _e('Widgets', 'ngs-js-salat-times') ?></a> <?php _e('to use this (NGS JS Salat Times) widget.', 'ngs-js-salat-times') ?></p>
       <p style="padding-left: 10px;"><?php _e('Insert this shortcode in post/page:', 'ngs-js-salat-times') ?>
-        <code>
-          <span style="color: #000000">
+        <span style="color: #000000">
+          <code>
             <span style="color: #0000BB">[ngs_js_salat_times]</span>
-            <br><?php _e('or:', 'ngs-js-salat-times') ?></br>
+          </code>
+          &nbsp;<?php _e('or:', 'ngs-js-salat-times') ?>
+          <code>
             <span style="color: #0000BB">[ngs_js_daily_salat_times]</span>
-          </span>
-        </code>
+          </code>
+        </span>
 			</p>
       <p style="padding-left: 10px;"><?php _e('Or, PHP code: ', 'ngs-js-salat-times') ?>
-        <code>
-          <span style="color: #000000">
+        <span style="color: #000000">
+          <code>
             <span style="color: #0000BB">&#60;&#63;</span>php echo do_shortcode&#40;&#39;[ngs_js_salat_times]&#39;&#41;;</span><span style="color: #0000BB">&#63;&#62;</span>
-            <br><?php _e('or:', 'ngs-js-salat-times') ?><br>
+          </code>
+          &nbsp;<?php _e('or:', 'ngs-js-salat-times') ?>
+          <code>
             <span style="color: #0000BB">&#60;&#63;</span>php echo do_shortcode&#40;&#39;[ngs_js_daily_salat_times]&#39;&#41;;</span><span style="color: #0000BB">&#63;&#62;</span>
-          </span>
-        </code>
+          </code>
+        </span>
 			</p>
 		</div>
   </div>
@@ -503,21 +583,24 @@ function ngs_js_salat_times_options_page() {
   <?php
 }
 
-function ngs_js_salat_times_help( $contextual_help, $screen_id, $screen ) { //Contextual Help
-  global $ngs_js_salat_times_hook;
-  if ( $screen_id == $ngs_js_salat_times_hook ) {
-          $contextual_help = sprintf( 
-                                /* translators: 1: Author contact link */
-                                __('For any help related to this plugin, contact %1$s .', 'ngs-js-salat-times'),
-                                '<a href="mailto:nicolas@ngs.ma>Nicolas Georges</a>'
-                              ) . '<br><br>' 
-                           . __('Web:', 'ngs-js-salat-times') . '<a href="https://ngs.ma">https://ngs.ma</a><br>'
-                           . __('View:', 'ngs-js-salat-times') . '<a href="http://wordpress.org/support/plugin/ngs-js-salat-times">' . __('Support Forum', 'ngs-js-salat-times') . '</a> | '
-                           . '<a href="http://wordpress.org/extend/plugins/ngs-js-salat-times/changelog/">' . __('Changelog', 'ngs-js-salat-times') . '</a><br>' 
-                           . __('Wordpress Plugins Directory:', 'ngs-js-salat-times') . '<a href="http://wordpress.org/plugins/ngs-js-salat-times">http://wordpress.org/plugins/ngs-js-salat-times</a><br>'
-                           . '<span style="color: red;">' . __('Please always keep this plugin up to date.', 'ngs-js-salat-times') . '</span>';
-  }
-  return $contextual_help;
+function ngs_js_salat_times_help() { 
+  //Contextual Help
+  $content = sprintf( 
+    /* translators: 1: Author contact link */
+    __('For any help related to this plugin, contact %1$s .', 'ngs-js-salat-times'),
+    '<a href="mailto:nicolas@ngs.ma>Nicolas Georges</a>'
+    ) . '<br><br>' 
+    . __('Web:', 'ngs-js-salat-times') . '<a href="https://ngs.ma">https://ngs.ma</a><br>'
+    . __('View:', 'ngs-js-salat-times') . '<a href="http://wordpress.org/support/plugin/ngs-js-salat-times">' . __('Support Forum', 'ngs-js-salat-times') . '</a> | '
+    . '<a href="http://wordpress.org/extend/plugins/ngs-js-salat-times/changelog/">' . __('Changelog', 'ngs-js-salat-times') . '</a><br>' 
+    . __('Wordpress Plugins Directory:', 'ngs-js-salat-times') . '<a href="http://wordpress.org/plugins/ngs-js-salat-times">http://wordpress.org/plugins/ngs-js-salat-times</a><br>'
+    . '<span style="color: red;">' . __('Please always keep this plugin up to date.', 'ngs-js-salat-times') . '</span>';
+
+  get_current_screen()->add_help_tab(array(
+    'id' => 'ngs_js_salat_times_help',
+    'title' =>  __('Contextual Help', 'ngs-js-salat-times'),
+    'content' => $content
+ ));
 }
 
 function ngs_js_salat_times_admin() {
@@ -568,9 +651,7 @@ if ( is_admin() ) {
   add_action( 'admin_enqueue_scripts', 'ngs_js_salat_times_enqueue_scripts' );
   add_action( 'admin_menu', 'ngs_js_salat_times_admin' );
   add_action( 'admin_init', 'register_ngs_js_salat_times_settings' );
-  
-  //This is said to be obsolete!
-  add_filter( 'contextual_help', 'ngs_js_salat_times_help', 10, 3 );
+  add_action( 'admin_head', 'ngs_js_salat_times_help');
 }
 
 ?>

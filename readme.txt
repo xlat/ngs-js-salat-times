@@ -52,6 +52,10 @@ So if you want to contribute feel free to fork it and submit a pull request.
 == Changelog ==
 = 1.3 =
 * realtime refresh daily salat widget
+* add undescore tempalte supports to customize widgets
+* fix hijri_adjustment Settings
+* add preview pane on plugin settings page
+* add I18N supports
 = 1.2 =
 * fix error on short_code
 * fix javascript error in admin pages

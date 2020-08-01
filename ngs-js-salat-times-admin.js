@@ -104,7 +104,22 @@ window.ngs_js_salat_time.autocomplete = function (inp, arr) {
   });
 }
 
+window.ngs_js_salat_time.update_admin_anchros = function (anchor) {
+  var inputs = jQuery.find("input[name^='njs_js_salat_times_options']");
+  inputs.forEach(function(e){
+    anchor.attr(e.name.match(/\[([^\]]*)\]/)[1], jQuery(e).val() );
+  });
+  window.ngs_js_salat_time.build_table_anchor(anchor[0]);
+}
+
 window.addEventListener("load", function(){
   window.ngs_js_salat_time.autocomplete(document.getElementsByName("njs_js_salat_times_options[timezone]")[0], moment.tz.names() );
   window.ngs_js_salat_time.autocomplete(document.getElementsByName("njs_js_salat_times_options[locale]")[0], moment.locales() );
+  //TODO: monitor our options inputs and rebuild previews anchros attributes, then call again build_tables...
+  jQuery(jQuery.find("input[name^='njs_js_salat_times_options']")).on('change paste keyup', function(event){    
+    var monthly = jQuery(jQuery.find('#ngs_js_salat_times_admin_monthly'));
+    var daily = jQuery(jQuery.find('#ngs_js_salat_times_admin_daily'));
+    window.ngs_js_salat_time.update_admin_anchros(monthly);
+    window.ngs_js_salat_time.update_admin_anchros(daily);
+  });
 });

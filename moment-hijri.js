@@ -678,7 +678,7 @@
 					console.log("iMonthsAdjustments: could not match ", row);
 				}
 			});
-			console.log("parsed rows as:", adjustments);
+			//console.log("parsed rows as:", adjustments);
 		}
 		//patch ummalqura.ummalquraData
 		var data = ummalqura.ummalquraData.map(function(val, idx, ary) { return val - (idx == 0 ? 28607 - 30 : ary[idx - 1]); });

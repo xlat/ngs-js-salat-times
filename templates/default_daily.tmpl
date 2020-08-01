@@ -1,0 +1,28 @@
+<table class="ngsjsst-salats ngsjsst-daily">
+  <thead>
+    <tr>
+      <th class="<?js= classes.fajr    ?>"><?js= titles.fajr    ?></th>
+      <th class="<?js= classes.churuk  ?>"><?js= titles.churuk  ?></th>
+      <th class="<?js= classes.dhuhr   ?>"><?js= titles.dhuhr   ?></th>
+      <th class="<?js= classes.asr     ?>"><?js= titles.asr     ?></th>
+      <th class="<?js= classes.maghrib ?>"><?js= titles.maghrib ?></th>
+      <th class="<?js= classes.isha    ?>"><?js= titles.isha    ?></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="ngsjsst-time">
+      <td class="ngsjsst-time <?js= classes.fajr    ?>"><?js= displayTimes.fajr ?></td>
+      <td class="ngsjsst-time <?js= classes.churuk  ?> ngsjsst-odd"><?js= displayTimes.churuk ?></td>
+      <td class="ngsjsst-time <?js= classes.dhuhr   ?>"><?js= displayTimes.dhuhr ?></td>
+      <td class="ngsjsst-time <?js= classes.asr     ?> ngsjsst-odd"><?js= displayTimes.asr ?></td>
+      <td class="ngsjsst-time <?js= classes.maghrib ?>"><?js= displayTimes.maghrib ?></td>
+      <td class="ngsjsst-time <?js= classes.isha    ?> ngsjsst-odd"><?js= displayTimes.isha ?></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="3" class="ngsjsst-day ngsjsst-hijri"><?js= displayTimes.hijriDate ?></th>
+      <th colspan="3" class="ngsjsst-day ngsjsst-gregorian"><?js= displayTimes.gregorianDate ?></th>
+    </tr>
+  </tfoot>
+</table>
