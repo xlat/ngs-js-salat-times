@@ -2,7 +2,7 @@
 Contributors: nicolasngsma
 Tags: salat times islam prayer adhan azan
 Requires at least: 5.4.1
-Tested up to: 5.4.1
+Tested up to: 5.5
 Requires PHP: 7.0
 Stable tag: 1.3
 License: MIT
